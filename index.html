@@ -1081,9 +1081,8 @@
   </div>
 
   <div class="hero-video" id="heroVideo">
-    <video id="heroVid" autoplay muted loop playsinline preload="auto" src="https://cdn.prod.website-files.com/6753439d3da31c3534ed228c%2F681f83972e5b8c350cf4ec25_MOCKUP%20%20-%20TRUSTED%20WORLDWIDE%20webm-transcode.mp4">
-      <source src="https://cdn.prod.website-files.com/6753439d3da31c3534ed228c%2F681f83972e5b8c350cf4ec25_MOCKUP%20%20-%20TRUSTED%20WORLDWIDE%20webm-transcode.mp4" type="video/mp4">
-      <source src="https://cdn.prod.website-files.com/6753439d3da31c3534ed228c%2F681f83972e5b8c350cf4ec25_MOCKUP%20%20-%20TRUSTED%20WORLDWIDE%20webm-transcode.webm" type="video/webm">
+    <video id="heroVid" autoplay muted loop playsinline preload="auto" src="videos/mini-showreel.mp4">
+      <source src="videos/mini-showreel.mp4" type="video/mp4">
     </video>
     <div class="hero-video-play"></div>
   </div>
@@ -1723,17 +1722,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Try to force autoplay
     heroVid.play().catch(function() {});
 
+    var miniSrc = 'videos/mini-showreel.mp4';
+    var fullSrc = 'videos/full-showreel-2025';
+
     heroVideo.addEventListener('click', function() {
       if (heroVideo.classList.contains('playing')) {
+        // Collapse back to mini
         heroVideo.classList.remove('playing');
         heroVideo.style.width = '';
         heroVideo.style.height = '';
         heroVid.muted = true;
+        heroVid.src = miniSrc;
+        heroVid.load();
+        heroVid.play().catch(function() {});
       } else {
+        // Expand to full showreel
         heroVideo.classList.add('playing');
         heroVideo.style.width = '480px';
         heroVideo.style.height = 'auto';
         heroVid.muted = false;
+        // Switch to full showreel with webm+mp4 fallback
+        heroVid.removeAttribute('src');
+        heroVid.innerHTML = '<source src="' + fullSrc + '.webm" type="video/webm"><source src="' + fullSrc + '.mp4" type="video/mp4">';
+        heroVid.load();
         heroVid.play().catch(function() {});
       }
     });
