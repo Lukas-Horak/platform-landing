@@ -522,20 +522,28 @@
   }
 
   @media (max-width: 768px) {
-    .logos-carousel {
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .logo-slot {
-      width: 90px;
-      height: 32px;
-    }
-    .logo-slot svg,
-    .logo-slot img {
-      max-height: 28px;
-      max-width: 90px;
-    }
+        .logos-bar {
+                flex-direction: column;
+                padding: 30px 16px 20px;
+        }
+        .logos-bar-label {
+                margin-bottom: 12px;
+        }
+        .logos-carousel {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 100%;
+        }
+        .logo-slot {
+                width: 70px;
+                height: 28px;
+        }
+        .logo-slot svg,
+        .logo-slot img {
+                max-height: 22px;
+                max-width: 70px;
+        }
   }
 
   /* VALUE PROPS */
