@@ -433,16 +433,10 @@
 
     /* SOCIAL PROOF LOGOS */
   .logos-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 900;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 14px 24px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    padding: 80px 40px 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -451,9 +445,7 @@
   }
 
   .logos-bar.hidden {
-    transform: translateY(100%);
-    opacity: 0;
-    pointer-events: none;
+    /* always visible */
   }
 
   .logos-bar-label {
