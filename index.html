@@ -262,7 +262,7 @@
     position: fixed;
     top: 100%;
     left: 100%;
-    transform: translate(calc(-100% - 24px), calc(-100% - 72px));
+    transform: translate(calc(-100% - 40px), calc(-100% - 40px));
     width: 200px;
     border-radius: 12px;
     overflow: hidden;
@@ -438,10 +438,10 @@
     background: transparent;
     padding: 80px 40px 120px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 24px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    gap: 20px;
   }
 
   .logos-bar.hidden {
@@ -845,7 +845,7 @@
   .award-badge {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
 
   .award-badge-icon {
@@ -863,7 +863,7 @@
 
   .award-badge-text span {
     display: block;
-    font-size: 11px;
+    font-size: 14px;
     color: #666;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -1162,7 +1162,7 @@
     .cta-secondary { padding: 14px 32px; font-size: 15px; }
     .hero-video { width: 160px; transform: translate(calc(-100% - 16px), calc(-100% - 64px)); }
     .hero-video.playing { width: 95vw; max-width: none; }
-    .award-badge-icon { width: 28px; height: 28px; }
+    .award-badge-icon { width: 44px; height: 44px; }
     .award-badge-text span { font-size: 9px; letter-spacing: 1px; }
     .award-badge-text { height: 16px; }
     .award-badge-text span { line-height: 16px; }
@@ -1218,7 +1218,7 @@
     <div class="hero-video-play"></div>
   </div>
 
-  <div class="hero-urgency"><span></span>Only 2 team slots available for Q2 2026</div>
+  
 </section>
 
 <!-- FIXED BOTTOM LOGO BAR -->
@@ -1601,7 +1601,9 @@
       </div>
     </div>
   </div>
-</section>
+
+    <div class="hero-urgency"><span></span>Only 2 team slots available for Q2 2026</div>
+  </section>
 
 <footer>
   <p>&copy; 2026 PLATFORM &middot; <a href="https://www.plat4m.com">plat4m.com</a> &middot; Design, motion, and code — under one roof.</p>
