@@ -506,6 +506,32 @@
     opacity: 0;
   }
 
+  /* LOGOS BAR MOBILE */
+  @media (max-width: 768px) {
+    .logos-bar {
+      flex-direction: column;
+      padding: 30px 20px 20px;
+    }
+    .logos-carousel {
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100%;
+    }
+    .logo-slot {
+      width: 80px;
+      height: 30px;
+    }
+    .logo-slot svg,
+    .logo-slot img {
+      max-height: 24px;
+      max-width: 80px;
+    }
+    .logos-bar-label {
+      margin-bottom: 16px;
+    }
+  }
+
   @media (max-width: 768px) {
     .logos-bar {
       padding: 40px 16px 32px;
