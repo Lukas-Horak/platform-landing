@@ -320,13 +320,73 @@
     filter: brightness(1);
   }
 
+  /* Expanded state: large centered overlay */
+  .hero-video.playing {
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, -50%);
+    width: 85vw !important;
+    max-width: 1200px;
+    height: auto !important;
+    border-radius: 16px;
+    box-shadow: 0 16px 64px rgba(0,0,0,0.8);
+    z-index: 10000;
+  }
+
+  /* Dark backdrop */
+  .hero-video-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    cursor: pointer;
+  }
+  .hero-video-backdrop.active {
+    display: block;
+  }
+
+  /* Close button */
+  .hero-video-close {
+    display: none;
+    position: fixed;
+    top: 16px;
+    right: 24px;
+    z-index: 10001;
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+  }
+  .hero-video-close:hover {
+    background: rgba(220, 38, 38, 0.8);
+  }
+  .hero-video-close.active {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-video-close span {
+    opacity: 0.6;
+    font-size: 12px;
+  }
+
   /* TRUST BAR */
   .trust-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 32px;
-    padding: 32px 24px;
+    gap: 48px;
+    padding: 56px 24px;
     border-top: 1px solid #1a1a1a;
     border-bottom: 1px solid #1a1a1a;
     flex-wrap: wrap;
@@ -463,8 +523,21 @@
   }
 
   /* VALUE PROPS */
+  /* Subtle gradient separator between sections */
+  .section-sep {
+    position: relative;
+  }
+  .section-sep::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: radial-gradient(ellipse at center, rgba(220,38,38,0.25) 0%, transparent 70%);
+    margin-bottom: 0;
+  }
+
   .value-section {
-    padding: 80px 24px;
+    padding: 140px 24px;
     max-width: 900px;
     margin: 0 auto;
   }
@@ -473,7 +546,7 @@
     font-size: 32px;
     font-weight: 600;
     text-align: center;
-    margin-bottom: 56px;
+    margin-bottom: 64px;
   }
 
   .value-grid {
@@ -483,9 +556,9 @@
   }
 
   .value-card {
-    padding: 32px;
+    padding: 40px;
     background: #111;
-    border-radius: 12px;
+    border-radius: 16px;
     border: 1px solid #1a1a1a;
   }
 
@@ -510,7 +583,7 @@
 
   /* HOW IT WORKS */
   .how-section {
-    padding: 80px 24px;
+    padding: 140px 24px;
     background: #111;
     text-align: center;
   }
@@ -518,7 +591,7 @@
   .how-section h2 {
     font-size: 32px;
     font-weight: 600;
-    margin-bottom: 48px;
+    margin-bottom: 64px;
   }
 
   .steps {
@@ -563,14 +636,14 @@
 
   /* CLUTCH REVIEWS */
   .reviews-section {
-    padding: 80px 24px;
+    padding: 140px 24px;
     max-width: 1000px;
     margin: 0 auto;
   }
 
   .reviews-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 64px;
   }
 
   .reviews-header h2 {
@@ -775,8 +848,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    padding: 40px 24px;
+    gap: 48px;
+    padding: 72px 24px;
     border-top: 1px solid #1a1a1a;
     flex-wrap: wrap;
   }
@@ -794,7 +867,7 @@
 
   /* FINAL CTA */
   .final-cta {
-    padding: 80px 24px;
+    padding: 140px 24px;
     text-align: center;
     background: linear-gradient(180deg, #0a0a0a 0%, #1a0a0a 100%);
   }
@@ -862,15 +935,16 @@
 
   .portfolio-scroll-wrap {
     width: 100%;
-    height: 70vh;
+    height: 75vh;
     display: flex;
     align-items: center;
     overflow: hidden;
+    margin-bottom: 40px;
   }
 
   .portfolio-header {
     text-align: center;
-    padding: 80px 24px 40px;
+    padding: 120px 24px 48px;
   }
 
   .portfolio-header h2 {
@@ -968,7 +1042,7 @@
 
   /* ONE ROOF BANNER */
   .one-roof {
-    padding: 60px 24px;
+    padding: 100px 24px;
     text-align: center;
     background: #111;
     border-top: 1px solid #1a1a1a;
@@ -976,9 +1050,9 @@
   }
 
   .one-roof h3 {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     color: #fff;
   }
 
@@ -1015,6 +1089,8 @@
   footer a { color: #dc2626; text-decoration: none; }
 
   @media (max-width: 768px) {
+    .value-section, .how-section, .reviews-section, .final-cta { padding-top: 100px; padding-bottom: 100px; }
+    .one-roof { padding: 72px 20px; }
     .value-grid { grid-template-columns: 1fr; }
     .steps { flex-direction: column; align-items: center; }
     .reviews-grid { grid-template-columns: 1fr; }
@@ -1026,7 +1102,7 @@
     .portfolio-item { flex: 0 0 75vw; }
     .portfolio-track { gap: 16px; padding: 0 20px; }
     .portfolio-overlay { opacity: 1; }
-    .portfolio-header { padding: 60px 20px 24px; }
+    .portfolio-header { padding: 80px 20px 24px; }
     .portfolio-header h2 { font-size: 26px; }
     .hero-nav { padding: 20px 20px 0; }
     .hero-nav-logo { height: 24px; }
@@ -1034,6 +1110,7 @@
     .hero-cta-wrap { flex-direction: column; gap: 12px; }
     .cta-secondary { padding: 14px 32px; font-size: 15px; }
     .hero-video { width: 160px; bottom: 64px; right: 16px; }
+    .hero-video.playing { width: 95vw !important; max-width: none; }
     .award-badge-icon { width: 28px; height: 28px; }
     .award-badge-text span { font-size: 9px; letter-spacing: 1px; }
     .award-badge-text { height: 16px; }
@@ -1080,6 +1157,8 @@
     <a href="#portfolio" class="cta-secondary">See Our Work</a>
   </div>
 
+  <div class="hero-video-backdrop" id="heroBackdrop"></div>
+  <div class="hero-video-close" id="heroClose">✕ Close <span>(ESC)</span></div>
   <div class="hero-video" id="heroVideo">
     <video id="heroVid" autoplay muted loop playsinline preload="auto" src="videos/mini-showreel.mp4">
       <source src="videos/mini-showreel.mp4" type="video/mp4">
@@ -1264,7 +1343,7 @@
 </section>
 
 <!-- VALUE PROPS -->
-<section class="value-section">
+<section class="value-section section-sep">
   <h2>Why companies choose PLATFORM</h2>
   <div class="value-grid">
     <div class="value-card">
@@ -1286,7 +1365,7 @@
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how-section">
+<section class="how-section section-sep">
   <h2>How it works</h2>
   <div class="steps">
     <div class="step">
@@ -1309,7 +1388,7 @@
 </section>
 
 <!-- CLUTCH REVIEWS -->
-<section class="reviews-section">
+<section class="reviews-section section-sep">
   <div class="reviews-header">
     <h2>What our clients say</h2>
     <a href="https://clutch.co/profile/platform" target="_blank" rel="noopener" class="clutch-badge">
@@ -1448,7 +1527,7 @@
 </div>
 
 <!-- FINAL CTA + GOOGLE CALENDAR BOOKING -->
-<section class="final-cta" id="book">
+<section class="final-cta section-sep" id="book">
   <h2>Let's talk about your product.</h2>
   <p>Pick a time that works for you. 30 minutes, no pitch — just an honest conversation about what you need.</p>
 
@@ -1718,6 +1797,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // HERO VIDEO: click to expand/collapse + autoplay fix
   var heroVideo = document.getElementById('heroVideo');
   var heroVid = document.getElementById('heroVid');
+  var heroBackdrop = document.getElementById('heroBackdrop');
+  var heroClose = document.getElementById('heroClose');
   if (heroVideo && heroVid) {
     // Try to force autoplay
     heroVid.play().catch(function() {});
@@ -1725,29 +1806,63 @@ document.addEventListener('DOMContentLoaded', function() {
     var miniSrc = 'videos/mini-showreel.mp4';
     var fullSrc = 'videos/full-showreel-2025';
 
-    heroVideo.addEventListener('click', function() {
+    function collapseVideo() {
+      heroVideo.classList.remove('playing');
+      heroVideo.style.width = '';
+      heroVideo.style.height = '';
+      heroVideo.style.transform = '';
+      heroVideo.style.top = '';
+      heroVideo.style.left = '';
+      heroVideo.style.bottom = '';
+      heroVideo.style.right = '';
+      if (heroBackdrop) heroBackdrop.classList.remove('active');
+      if (heroClose) heroClose.classList.remove('active');
+      heroVid.muted = true;
+      heroVid.loop = true;
+      heroVid.src = miniSrc;
+      heroVid.load();
+      heroVid.play().catch(function() {});
+      document.body.style.overflow = '';
+    }
+
+    function expandVideo() {
+      heroVideo.classList.add('playing');
+      if (heroBackdrop) heroBackdrop.classList.add('active');
+      if (heroClose) heroClose.classList.add('active');
+      heroVid.muted = false;
+      heroVid.loop = false;
+      // Switch to full showreel with webm+mp4 fallback
+      heroVid.removeAttribute('src');
+      heroVid.innerHTML = '<source src="' + fullSrc + '.webm" type="video/webm"><source src="' + fullSrc + '.mp4" type="video/mp4">';
+      heroVid.load();
+      heroVid.play().catch(function() {});
+      document.body.style.overflow = 'hidden';
+    }
+
+    heroVideo.addEventListener('click', function(e) {
       if (heroVideo.classList.contains('playing')) {
-        // Collapse back to mini
-        heroVideo.classList.remove('playing');
-        heroVideo.style.width = '';
-        heroVideo.style.height = '';
-        heroVid.muted = true;
-        heroVid.src = miniSrc;
-        heroVid.load();
-        heroVid.play().catch(function() {});
+        collapseVideo();
       } else {
-        // Expand to full showreel
-        heroVideo.classList.add('playing');
-        heroVideo.style.width = '480px';
-        heroVideo.style.height = 'auto';
-        heroVid.muted = false;
-        // Switch to full showreel with webm+mp4 fallback
-        heroVid.removeAttribute('src');
-        heroVid.innerHTML = '<source src="' + fullSrc + '.webm" type="video/webm"><source src="' + fullSrc + '.mp4" type="video/mp4">';
-        heroVid.load();
-        heroVid.play().catch(function() {});
+        expandVideo();
       }
     });
+
+    // Close via backdrop click
+    if (heroBackdrop) {
+      heroBackdrop.addEventListener('click', collapseVideo);
+    }
+    // Close via close button
+    if (heroClose) {
+      heroClose.addEventListener('click', collapseVideo);
+    }
+    // Close via ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && heroVideo.classList.contains('playing')) {
+        collapseVideo();
+      }
+    });
+    // Auto-collapse when full showreel ends
+    heroVid.addEventListener('ended', collapseVideo);
   }
 
   // LOGO BAR: hide when scrolled past hero
