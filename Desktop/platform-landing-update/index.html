@@ -256,7 +256,7 @@
   }
 
   .hero-video {
-    position: relative;
+    position: fixed;
     top: 100%;
     left: 100%;
     transform: translate(calc(-100% - 24px), calc(-100% - 72px));
@@ -341,8 +341,8 @@
 
   /* Dark backdrop */
   .hero-video-backdrop {
-    position: relative;
-    top: 0;   
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0,0,0,0.85);
     z-index: 9999;
     cursor: pointer;
@@ -357,7 +357,7 @@
 
   /* Close button */
   .hero-video-close {
-    position: relative;
+    position: fixed;
     top: 16px;
     right: 24px;
     z-index: 10001;
@@ -428,7 +428,7 @@
     background: #1a1a1a;
   }
 
-    /* SOCIAL PROOF LOGOS - UPDATED */
+    /* SOCIAL PROOF LOGOS */
   .logos-bar {
     position: relative;
     z-index: 1;
@@ -441,7 +441,7 @@
   }
 
   .logos-bar.hidden {
-    /* always visible */
+    /* no longer hidden - always visible */
   }
 
   .logos-bar-label {
@@ -541,7 +541,7 @@
     width: 100%;
     height: 1px;
     background: radial-gradient(ellipse at center, rgba(220,38,38,0.25) 0%, transparent 70%);
-    margin-
+    margin-bottom: 0;
   }
 
   .value-section {
@@ -798,8 +798,8 @@
   .hero-nav {
     position: absolute;
     top: 0;
-    
-    
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1000,9 +1000,9 @@
 
   .portfolio-overlay {
     position: absolute;
-    
-    
-    
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 32px;
     background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
     opacity: 0;
