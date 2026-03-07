@@ -430,27 +430,18 @@
 
     /* SOCIAL PROOF LOGOS */
   .logos-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 900;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 14px 24px;
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    padding: 80px 40px 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 24px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
   }
 
   .logos-bar.hidden {
-    transform: translateY(100%);
-    opacity: 0;
-    pointer-events: none;
+    /* no longer hidden - always visible */
   }
 
   .logos-bar-label {
@@ -516,19 +507,26 @@
   }
 
   @media (max-width: 768px) {
+    .logos-bar {
+      padding: 40px 16px 32px;
+    }
     .logos-carousel {
-      gap: 24px;
+      gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
     }
     .logo-slot {
-      width: 90px;
-      height: 32px;
+      width: 70px;
+      height: 28px;
     }
     .logo-slot svg,
     .logo-slot img {
-      max-height: 28px;
-      max-width: 90px;
+      max-height: 22px;
+      max-width: 70px;
+    }
+    .logos-bar-label {
+      font-size: 9px;
+      margin-bottom: 16px;
     }
   }
 
@@ -1869,20 +1867,20 @@ document.addEventListener('DOMContentLoaded', function() {
     heroVid.addEventListener('ended', collapseVideo);
   }
 
-  // LOGO BAR: hide when scrolled past hero
-  var logosBar = document.getElementById('logosBar');
-  if (logosBar) {
-    var heroSection = document.querySelector('.hero');
-    window.addEventListener('scroll', function() {
-      if (!heroSection) return;
-      var heroBottom = heroSection.getBoundingClientRect().bottom;
-      if (heroBottom < 0) {
-        logosBar.classList.add('hidden');
-      } else {
-        logosBar.classList.remove('hidden');
-      }
-    }, { passive: true });
-  }
+  // LOGO BAR: hide when scrolled past hero - DISABLED (logos bar now always visible)
+  // var logosBar = document.getElementById('logosBar');
+  // if (logosBar) {
+  //   var heroSection = document.querySelector('.hero');
+  //   window.addEventListener('scroll', function() {
+  //     if (!heroSection) return;
+  //     var heroBottom = heroSection.getBoundingClientRect().bottom;
+  //     if (heroBottom < 0) {
+  //       logosBar.classList.add('hidden');
+  //     } else {
+  //       logosBar.classList.remove('hidden');
+  //     }
+  //   }, { passive: true });
+  // }
 });
 </script>
 
