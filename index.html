@@ -1011,8 +1011,15 @@
     height: 75vh;
     display: flex;
     align-items: center;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     margin-bottom: 40px;
+  }
+  .portfolio-scroll-wrap::-webkit-scrollbar {
+    display: none;
   }
 
   .portfolio-header {
