@@ -269,14 +269,8 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.6);
     border: 1px solid #222;
     cursor: pointer;
-    transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                right 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-                border-radius 0.4s ease,
-                box-shadow 0.4s ease;
+    transition: border-radius 0.4s ease, box-shadow 0.4s ease;
+    background: #111;
   }
 
   .hero-video video {
@@ -343,6 +337,32 @@
     border-radius: 16px;
     box-shadow: 0 16px 64px rgba(0,0,0,0.8);
     z-index: 10000;
+    background: #111;
+  }
+
+  .hero-video-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .hero-video.playing .hero-video-loading {
+    opacity: 1;
+  }
+  .hero-video.playing.video-ready .hero-video-loading {
+    opacity: 0;
+  }
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
   /* Dark backdrop */
@@ -1232,6 +1252,7 @@
       <source src="videos/mini-showreel.mp4" type="video/mp4">
     </video>
     <div class="hero-video-play"></div>
+    <div class="hero-video-loading"></div>
   </div>
 
   
@@ -1874,31 +1895,97 @@ document.addEventListener('DOMContentLoaded', function() {
     var miniSrc = 'videos/mini-showreel.mp4';
     var fullSrc = 'videos/full-showreel-2025';
 
+    var isAnimating = false;
+
+    function flipAnimate(el, applyChange, duration) {
+      // FLIP: First
+      var first = el.getBoundingClientRect();
+      // Apply the DOM/class change
+      applyChange();
+      // FLIP: Last
+      var last = el.getBoundingClientRect();
+      // FLIP: Invert
+      var dx = first.left + first.width/2 - (last.left + last.width/2);
+      var dy = first.top + first.height/2 - (last.top + last.height/2);
+      var sw = first.width / last.width;
+      var sh = first.height / last.height;
+      // Apply inverse transform
+      el.style.transition = 'none';
+      el.style.transform = 'translate(calc(-50% + ' + dx + 'px), calc(-50% + ' + dy + 'px)) scale(' + sw + ', ' + sh + ')';
+      // Force reflow
+      el.offsetHeight;
+      // FLIP: Play - animate to final state
+      el.style.transition = 'transform ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1), border-radius ' + duration + 'ms ease, box-shadow ' + duration + 'ms ease';
+      el.style.transform = '';
+    }
+
+    function flipAnimateCollapse(el, applyChange, duration) {
+      // FLIP for collapse: First
+      var first = el.getBoundingClientRect();
+      // Apply the DOM/class change
+      applyChange();
+      // FLIP: Last
+      var last = el.getBoundingClientRect();
+      // FLIP: Invert
+      var dx = first.left + first.width/2 - (last.left + last.width/2);
+      var dy = first.top + first.height/2 - (last.top + last.height/2);
+      var sw = first.width / last.width;
+      var sh = first.height / last.height;
+      el.style.transition = 'none';
+      el.style.transform = 'translate(' + dx + 'px, ' + dy + 'px) scale(' + sw + ', ' + sh + ')';
+      el.offsetHeight;
+      el.style.transition = 'transform ' + duration + 'ms cubic-bezier(0.4, 0, 0.2, 1), border-radius ' + duration + 'ms ease, box-shadow ' + duration + 'ms ease';
+      el.style.transform = '';
+    }
+
     function collapseVideo() {
-      heroVideo.classList.remove('playing');
-      // CSS transitions handle the animation back to collapsed state
+      if (isAnimating) return;
+      isAnimating = true;
       if (heroBackdrop) heroBackdrop.classList.remove('active');
       if (heroClose) heroClose.classList.remove('active');
-      heroVid.muted = true;
-      heroVid.loop = true;
-      heroVid.src = miniSrc;
-      heroVid.load();
-      heroVid.play().catch(function() {});
-      document.body.style.overflow = '';
+      flipAnimateCollapse(heroVideo, function() {
+        heroVideo.classList.remove('playing');
+        heroVideo.classList.remove('video-ready');
+      }, 450);
+      setTimeout(function() {
+        heroVid.muted = true;
+        heroVid.loop = true;
+        heroVid.src = miniSrc;
+        heroVid.load();
+        heroVid.play().catch(function() {});
+        heroVideo.style.transition = '';
+        heroVideo.style.transform = '';
+        document.body.style.overflow = '';
+        isAnimating = false;
+      }, 460);
     }
 
     function expandVideo() {
-      heroVideo.classList.add('playing');
+      if (isAnimating) return;
+      isAnimating = true;
+      heroVideo.classList.remove('video-ready');
       if (heroBackdrop) heroBackdrop.classList.add('active');
       if (heroClose) heroClose.classList.add('active');
+      flipAnimate(heroVideo, function() {
+        heroVideo.classList.add('playing');
+      }, 450);
+      // Switch to full showreel after animation starts
       heroVid.muted = false;
       heroVid.loop = false;
-      // Switch to full showreel with webm+mp4 fallback
       heroVid.removeAttribute('src');
       heroVid.innerHTML = '<source src="' + fullSrc + '.webm" type="video/webm"><source src="' + fullSrc + '.mp4" type="video/mp4">';
       heroVid.load();
       heroVid.play().catch(function() {});
+      // Show video-ready when video can play
+      heroVid.addEventListener('canplay', function onCanPlay() {
+        heroVideo.classList.add('video-ready');
+        heroVid.removeEventListener('canplay', onCanPlay);
+      });
       document.body.style.overflow = 'hidden';
+      setTimeout(function() {
+        heroVideo.style.transition = '';
+        isAnimating = false;
+      }, 460);
     }
 
     heroVideo.addEventListener('click', function(e) {
