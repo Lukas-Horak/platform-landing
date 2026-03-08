@@ -642,10 +642,7 @@
     color: #888;
     line-height: 1.7;
   }
-  .value-card:hover {
-    border-color: rgba(220,38,38,0.3);
-    box-shadow: 0 0 40px rgba(220,38,38,0.08);
-  }
+  
 
 
   .value-number {
@@ -689,16 +686,13 @@
   }
 
   .step-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: #dc2626;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 16px;
+    font-size: 80px;
+    font-weight: 300;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #dc2626;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
   }
 
   .step h3 {
@@ -778,12 +772,7 @@
     padding: 28px;
     display: flex;
     flex-direction: column;
-    transition: border-color 0.2s;
-  }
-
-  .review-card:hover {
-    border-color: #333;
-  }
+    }
 
   .review-stars {
     color: #dc2626;
@@ -1459,17 +1448,17 @@
   <h2>How it works</h2>
   <div class="steps reveal">
     <div class="step">
-      <div class="step-num">1</div>
+      <div class="step-num">1.</div>
       <h3>Discovery Call</h3>
       <p>We learn about your product, team, and what's holding you back. No templates — real conversation.</p>
     </div>
     <div class="step">
-      <div class="step-num">2</div>
+      <div class="step-num">2.</div>
       <h3>Team Match</h3>
       <p>We propose the right senior experts for your specific needs — design, dev, QA, or DevOps.</p>
     </div>
     <div class="step">
-      <div class="step-num">3</div>
+      <div class="step-num">3.</div>
       <h3>Deliver</h3>
       <p>Our team plugs into your workflow (Figma, Slack, Jira, GitHub) and starts delivering immediately.</p>
     </div>
