@@ -260,9 +260,8 @@
 
   .hero-video {
     position: fixed;
-    top: 100%;
-    left: 100%;
-    transform: translate(calc(-100% - 40px), calc(-100% - 40px));
+    bottom: 40px;
+    right: 40px;
     width: 200px;
     border-radius: 12px;
     overflow: hidden;
@@ -270,7 +269,9 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.6);
     border: 1px solid #222;
     cursor: pointer;
-    transition: top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                right 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                top 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 left 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
                 width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
@@ -332,6 +333,8 @@
 
   /* Expanded state: large centered overlay */
   .hero-video.playing {
+    bottom: auto;
+    right: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
