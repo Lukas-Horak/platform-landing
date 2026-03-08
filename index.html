@@ -1895,6 +1895,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Try to force autoplay
     heroVid.play().catch(function() {});
 
+    var miniSrc = 'videos/mini-showreel.mp4';
+    var fullSrc = 'videos/full-showreel-2025';
+
     // Preload full showreel in background for smooth first play
     var preloadLink = document.createElement('link');
     preloadLink.rel = 'prefetch';
@@ -1904,9 +1907,6 @@ document.addEventListener('DOMContentLoaded', function() {
     preloadLinkWebm.rel = 'prefetch';
     preloadLinkWebm.href = fullSrc + '.webm';
     document.head.appendChild(preloadLinkWebm);
-
-    var miniSrc = 'videos/mini-showreel.mp4';
-    var fullSrc = 'videos/full-showreel-2025';
 
     var isAnimating = false;
 
