@@ -278,6 +278,9 @@
     display: block;
     filter: brightness(0.5);
     transition: filter 0.3s;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: #111;
   }
 
   .hero-video:hover video {
@@ -1892,6 +1895,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Try to force autoplay
     heroVid.play().catch(function() {});
 
+    // Preload full showreel in background for smooth first play
+    var preloadLink = document.createElement('link');
+    preloadLink.rel = 'prefetch';
+    preloadLink.href = fullSrc + '.mp4';
+    document.head.appendChild(preloadLink);
+    var preloadLinkWebm = document.createElement('link');
+    preloadLinkWebm.rel = 'prefetch';
+    preloadLinkWebm.href = fullSrc + '.webm';
+    document.head.appendChild(preloadLinkWebm);
+
     var miniSrc = 'videos/mini-showreel.mp4';
     var fullSrc = 'videos/full-showreel-2025';
 
@@ -1966,25 +1979,26 @@ document.addEventListener('DOMContentLoaded', function() {
       heroVideo.classList.remove('video-ready');
       if (heroBackdrop) heroBackdrop.classList.add('active');
       if (heroClose) heroClose.classList.add('active');
+      // Run FLIP animation first - keep mini video visible during animation
       flipAnimate(heroVideo, function() {
         heroVideo.classList.add('playing');
       }, 450);
-      // Switch to full showreel after animation starts
-      heroVid.muted = false;
-      heroVid.loop = false;
-      heroVid.removeAttribute('src');
-      heroVid.innerHTML = '<source src="' + fullSrc + '.webm" type="video/webm"><source src="' + fullSrc + '.mp4" type="video/mp4">';
-      heroVid.load();
-      heroVid.play().catch(function() {});
-      // Show video-ready when video can play
-      heroVid.addEventListener('canplay', function onCanPlay() {
-        heroVideo.classList.add('video-ready');
-        heroVid.removeEventListener('canplay', onCanPlay);
-      });
       document.body.style.overflow = 'hidden';
+      // Wait for animation to finish BEFORE swapping video source
       setTimeout(function() {
         heroVideo.style.transition = '';
         isAnimating = false;
+        // NOW switch to full showreel
+        heroVid.muted = false;
+        heroVid.loop = false;
+        heroVid.removeAttribute('src');
+        heroVid.innerHTML = '<source src="' + fullSrc + '.webm" type="video/webm"><source src="' + fullSrc + '.mp4" type="video/mp4">';
+        heroVid.load();
+        heroVid.play().catch(function() {});
+        heroVid.addEventListener('canplay', function onCanPlay() {
+          heroVideo.classList.add('video-ready');
+          heroVid.removeEventListener('canplay', onCanPlay);
+        });
       }, 460);
     }
 
